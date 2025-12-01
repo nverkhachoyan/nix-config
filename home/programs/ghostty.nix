@@ -1,0 +1,46 @@
+{ root, ... }:
+
+{
+  programs.ghostty = {
+    enable = true;
+    package = null;
+    settings = {
+      # Font settings
+      "font-family" = "JetBrainsMono Nerd Font Mono";
+      "font-size" = 20;
+
+      # smooth-reading features
+      "font-feature" = [
+        "-calt"
+        "-liga"
+      ];
+      "font-thicken" = true;
+
+      # --- Window & Appearance ---
+      "window-theme" = "dark";
+      "background-blur" = 20;
+      "window-padding-x" = 12;
+      "window-padding-y" = 12;
+
+      # Clean up the macOS header
+      "macos-titlebar-style" = "tabs";
+      "macos-titlebar-proxy-icon" = "hidden";
+
+      # --- Behavior ---
+      maximize = true;
+      "copy-on-select" = true;
+      "mouse-hide-while-typing" = true;
+      "confirm-close-surface" = true;
+      "shell-integration" = "detect";
+
+      # --- Keyboard ---
+      "macos-option-as-alt" = true;
+
+      # --- Cursor ---
+      "cursor-style" = "block";
+      "cursor-style-blink" = true;
+      "cursor-color" = "#d4d4d4";
+      "cursor-text" = "#000000";
+    };
+  };
+}

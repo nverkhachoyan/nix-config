@@ -13,6 +13,15 @@
   system = {
     primaryUser = username;
     stateVersion = 6;
+    defaults = {
+      dock.autohide = true;
+      dock.show-recents = false;
+      dock.mru-spaces = false;
+      finder.ShowPathbar = true;
+      finder.ShowStatusBar = true;
+
+      NSGlobalDomain.KeyRepeat = 2;
+    };
   };
 
   users.users."${username}" = {
@@ -24,6 +33,11 @@
     wget
   ];
 
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   fonts.packages = with pkgs; [
     jetbrains-mono
     nerd-fonts.jetbrains-mono
@@ -31,7 +45,12 @@
   ];
 
   security.pam.services.sudo_local.touchIdAuth = true;
-  system.defaults.dock.autohide = true;
+
+  services = {
+    sketchybar = {
+      enable = true;
+    };
+  };
 
   nix.settings = {
     trusted-users = [

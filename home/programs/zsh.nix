@@ -15,11 +15,6 @@
       cat = "bat";
       dc = "docker-compose";
       dps = "docker ps";
-      gst = "git status";
-      gcm = "git commit -m";
-      ga = "git add";
-      gaa = "git add --all";
-      gp = "git push";
       cd = "z";
       dev = "cd ~/projects/";
       ".." = "cd ..";

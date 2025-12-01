@@ -55,30 +55,28 @@
         ];
       };
 
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt-tree;
 
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           pkgs.git
-          pkgs.nixfmt-rfc-style
-          home-manager.packages.${system}.home-manager
+          pkgs.nixfmt-tree
           darwin.packages.${system}.darwin-rebuild
         ];
         shellHook = ''
           alias dr="darwin-rebuild switch --flake .#${username}-darwin"
-          alias hms="home-manager switch --flake .#${username}-darwin"
         '';
       };
 
       checks.${system}.fmt =
         pkgs.runCommand "fmt-check"
           {
-            nativeBuildInputs = [ pkgs.nixfmt-rfc-style ];
+            nativeBuildInputs = [ pkgs.nixfmt-tree ];
             src = self;
           }
           ''
             cd "$src"
-            nixfmt --check flake.nix $(find system home -name '*.nix' -print)
+            treefmt --ci .
             touch "$out"
           '';
     };

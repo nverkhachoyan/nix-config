@@ -10,6 +10,7 @@
     ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/ssh.nix
+    ./programs/sketchybar.nix
     ./packages.nix
   ];
 

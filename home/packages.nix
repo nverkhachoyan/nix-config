@@ -9,10 +9,12 @@
     fzf
     ripgrep
     eza
-    uv
 
-    # Runtimes
+
+    # Pkg managers & runtimes
     nodejs_24
+    uv
+    cargo
 
     # LSP
     lua-language-server

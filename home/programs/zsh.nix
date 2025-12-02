@@ -18,8 +18,8 @@
       ga = "git add";
       gaa = "git add --all";
       gfp = "git fetch && git pull";
-      dc = "docker-compose";
-      dps = "docker ps";
+      dc = "docker compose";
+      dps = ''docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'';
       cd = "z";
       dev = "cd ~/projects/";
       ".." = "cd ..";

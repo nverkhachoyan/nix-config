@@ -11,6 +11,9 @@
     eza
     uv
 
+    # Runtimes
+    nodejs_24
+
     # LSP
     lua-language-server
     nodePackages.typescript-language-server

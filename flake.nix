@@ -51,7 +51,7 @@
 
         modules = [
           home-manager.darwinModules.default
-          ./system/darwin.nix
+          ./system/darwin
         ];
       };
 

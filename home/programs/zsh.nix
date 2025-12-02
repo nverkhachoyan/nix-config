@@ -13,6 +13,11 @@
       ll = "eza -lah --sort=type --icons --hyperlink --time-style relative";
       la = "ls -A";
       cat = "bat";
+      gst = "git status";
+      gcm = "git commit -m";
+      ga = "git add";
+      gaa = "git add --all";
+      gfp = "git fetch && git pull";
       dc = "docker-compose";
       dps = "docker ps";
       cd = "z";

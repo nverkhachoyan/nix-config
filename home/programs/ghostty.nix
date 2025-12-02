@@ -1,4 +1,4 @@
-{ root, ... }:
+{ ... }:
 
 {
   programs.ghostty = {

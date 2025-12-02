@@ -1,9 +1,5 @@
 {
   root,
-  nixpkgs,
-  home-manager,
-  darwin,
-  config,
   pkgs,
   username,
   ...

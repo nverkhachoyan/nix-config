@@ -14,6 +14,7 @@
     # Devops
     terraform
     awscli2
+    act
 
     # Pkg managers & runtimes
     nodejs_24

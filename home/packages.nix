@@ -9,10 +9,15 @@
     fzf
     ripgrep
     eza
+    yt-dlp
 
+    # Devops
+    terraform
+    awscli2
 
     # Pkg managers & runtimes
     nodejs_24
+    pnpm
     uv
     cargo
 

@@ -24,6 +24,7 @@
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    HOMEBREW_NO_ENV_HINTS = "1";
   };
 
   fonts.packages = with pkgs; [

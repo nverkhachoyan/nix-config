@@ -7,8 +7,11 @@
       upgrade = true;
       cleanup = "zap";
     };
-    taps = [ ];
-    brews = [ ];
+    taps = [ "localstack/tap" ];
+
+    brews = [
+      "localstack"
+    ];
     casks = [
       "ghostty"
       "alacritty"

@@ -15,6 +15,9 @@
     casks = [
       "ghostty"
       "alacritty"
+      "1password"
+      "1password-cli"
+      
     ];
   };
 }

@@ -10,6 +10,7 @@
     ripgrep
     eza
     yt-dlp
+    nmap
 
     # Devops
     terraform
@@ -21,6 +22,7 @@
     pnpm
     uv
     cargo
+    go
 
     # LSP
     lua-language-server

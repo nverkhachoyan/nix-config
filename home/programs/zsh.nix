@@ -22,6 +22,7 @@
       dps = ''docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'';
       cd = "z";
       dev = "cd ~/projects/";
+      laws = "aws --profile localstack";
       ".." = "cd ..";
       "..." = "cd ../..";
     };

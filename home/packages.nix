@@ -16,6 +16,7 @@
     terraform
     awscli2
     act
+    k3sup
 
     # Pkg managers & runtimes
     nodejs_24

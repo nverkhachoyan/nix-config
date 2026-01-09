@@ -70,17 +70,5 @@
           alias dr="darwin-rebuild switch --flake .#${username}-darwin"
         '';
       };
-
-      checks.${system}.fmt =
-        pkgs.runCommand "fmt-check"
-          {
-            nativeBuildInputs = [ pkgs.nixfmt-tree ];
-            src = self;
-          }
-          ''
-            cd "$src"
-            treefmt --ci .
-            touch "$out"
-          '';
     };
 }

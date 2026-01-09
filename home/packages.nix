@@ -17,6 +17,7 @@
     awscli2
     act
     k3sup
+    kubernetes-helm
 
     # Pkg managers & runtimes
     nodejs_24

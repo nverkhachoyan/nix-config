@@ -17,6 +17,7 @@
         startup_mode = "Maximized";
         opacity = 0.9;
         blur = true;
+        option_as_alt = "Both";
       };
 
       terminal = {

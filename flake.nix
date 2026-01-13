@@ -1,5 +1,5 @@
 {
-  description = "Mac + Linux config";
+  description = "Mac config";
 
   nixConfig = {
     extra-substituters = [
@@ -26,18 +26,15 @@
   };
 
   outputs =
-    {
-      self,
+    inputs@{
       nixpkgs,
       home-manager,
       darwin,
-      nixvim,
       ...
     }:
     let
       username = "nverkhachoyan";
       system = "aarch64-darwin";
-      root = self;
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -47,19 +44,12 @@
       darwinConfigurations."${username}-darwin" = darwin.lib.darwinSystem {
         inherit system pkgs;
         specialArgs = {
-          inherit
-            username
-            root
-            nixpkgs
-            home-manager
-            darwin
-            nixvim
-            ;
+          inherit inputs username;
         };
 
         modules = [
-          home-manager.darwinModules.default
           ./system/darwin
+          home-manager.darwinModules.default
         ];
       };
 
@@ -71,9 +61,7 @@
           pkgs.nixfmt-tree
           darwin.packages.${system}.darwin-rebuild
         ];
-        shellHook = ''
-          alias dr="darwin-rebuild switch --flake .#${username}-darwin"
-        '';
       };
+
     };
 }

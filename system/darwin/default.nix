@@ -1,10 +1,10 @@
 {
-  root,
+  inputs,
   pkgs,
   username,
-  nixvim,
   ...
 }:
+
 
 {
   imports = [
@@ -12,6 +12,7 @@
     ./homebrew.nix
     ./system.nix
   ];
+
 
   users.users."${username}" = {
     home = "/Users/${username}";
@@ -36,17 +37,21 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "backup";
-  home-manager.extraSpecialArgs = {
-    inherit username root nixvim;
+  home-manager = {
+
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    extraSpecialArgs = {
+      inherit inputs username;
+    };
+
+    users.${username} = {
+      imports = [
+        inputs.nixvim.homeModules.nixvim
+        ../../home/home.nix
+      ];
+    };
   };
 
-  home-manager.users.${username} = {
-    imports = [
-      nixvim.homeModules.nixvim
-      ../../home/home.nix
-    ];
-  };
 }

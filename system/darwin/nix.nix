@@ -1,12 +1,13 @@
-{
-  root,
-  nixpkgs,
-  home-manager,
-  darwin,
-  username,
-  ...
-}:
+{ inputs, username, ... }:
 
+let
+  inherit (inputs)
+    self
+    nixpkgs
+    home-manager
+    darwin
+    ;
+in
 {
   nix = {
     optimise.automatic = true;
@@ -24,7 +25,7 @@
     };
 
     registry = {
-      self.flake = root;
+      self.flake = self;
       nixpkgs.flake = nixpkgs;
       home-manager.flake = home-manager;
       darwin.flake = darwin;
@@ -34,7 +35,7 @@
       "nixpkgs=${nixpkgs.outPath}"
       "home-manager=${home-manager.outPath}"
       "darwin=${darwin.outPath}"
-      "self=${root.outPath}"
+      "self=${self.outPath}"
     ];
 
     gc = {

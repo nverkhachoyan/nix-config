@@ -7,5 +7,5 @@ Some nice nix flakes like [nixvim](https://github.com/nix-community/nixvim) have
 Build by running
 
 ```sh
-sudo darwin-rebuild switch --flake .#primary
+sudo darwin-rebuild switch --flake .#macbook
 ```

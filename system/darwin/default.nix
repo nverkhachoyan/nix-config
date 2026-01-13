@@ -5,14 +5,12 @@
   ...
 }:
 
-
 {
   imports = [
     ./nix.nix
     ./homebrew.nix
     ./system.nix
   ];
-
 
   users.users."${username}" = {
     home = "/Users/${username}";

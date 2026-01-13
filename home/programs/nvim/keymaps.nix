@@ -71,6 +71,30 @@
       action.__raw = "vim.diagnostic.setloclist";
       options.desc = "Diagnostics list";
     }
+    {
+      mode = "n";
+      key = "<leader>xx";
+      action = "<cmd>Trouble diagnostics toggle<cr>";
+      options.desc = "Workspace diagnostics";
+    }
+    {
+      mode = "n";
+      key = "<leader>xd";
+      action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
+      options.desc = "Document diagnostics";
+    }
+    {
+      mode = "n";
+      key = "<leader>xl";
+      action = "<cmd>Trouble lsp toggle<cr>";
+      options.desc = "LSP references/definitions";
+    }
+    {
+      mode = "n";
+      key = "<leader>xq";
+      action = "<cmd>Trouble quickfix toggle<cr>";
+      options.desc = "Quickfix list";
+    }
 
     # Telescope
     {
@@ -101,22 +125,17 @@
     }
     {
       mode = "n";
-      key = "<leader>nf";
-      action = "<cmd>NvimTreeFindFile<cr>";
-      options.desc = "Find file in tree";
+      key = "<leader>nc";
+      action = "<cmd>NvimTreeCollapse<cr>";
+      options.desc = "Collapse Tree";
     }
     {
       mode = "n";
-      key = "<leader>nr";
-      action = "<cmd>NvimTreeRefresh<cr>";
-      options.desc = "Refresh tree";
+      key = "<leader>ne";
+      action = "<cmd>NvimTreeCollapseKeepBuffers<cr>";
+      options.desc = "Collapse Keep Buffers";
     }
-    {
-      mode = "n";
-      key = "<leader>nt";
-      action = "<cmd>NvimTreeFocus<cr>";
-      options.desc = "Focus tree";
-    }
+    
 
     # Toggle relative numbers
     {

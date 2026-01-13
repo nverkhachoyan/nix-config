@@ -19,7 +19,6 @@
       maplocalleader = "\\";
     };
 
-    # Load custom lualine config
     extraConfigLuaPost = builtins.readFile ./lua/lualine.lua;
   };
 }

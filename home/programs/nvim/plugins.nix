@@ -2,8 +2,16 @@
 {
   programs.nixvim.plugins = {
     web-devicons.enable = true;
-    telescope.enable = true;
+    telescope = {
+      enable = true;
+      extensions = {
+        fzf-native.enable = true;
+        ui-select.enable = true;
+      };
+    };
     nvim-tree.enable = true;
+    nvim-autopairs.enable = true;
+    illuminate.enable = true;
     trouble.enable = true;
     nvim-surround.enable = true;
     luasnip.enable = true;
@@ -11,6 +19,19 @@
 
     treesitter = {
       enable = true;
+      settings = {
+        highlight.enable = true;
+        indent.enable = true;
+        incremental_selection = {
+          enable = true;
+          keymaps = {
+            init_selection = "<C-space>";
+            node_incremental = "<C-space>";
+            scope_incremental = "<C-s>";
+            node_decremental = "<bs>";
+          };
+        };
+      };
       nixGrammars = true;
       grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
         lua
@@ -60,14 +81,6 @@
 
     lsp = {
       enable = true;
-      onAttach = ''
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function() vim.lsp.buf.format({ bufnr = bufnr }) end,
-          })
-        end
-      '';
       keymaps = {
         lspBuf = {
           gd = {
@@ -108,6 +121,28 @@
         clangd.enable = true;
         nixd.enable = true;
         pyright.enable = true;
+      };
+    };
+
+    conform-nvim = {
+      enable = true;
+      settings = {
+        formatters_by_ft = {
+          lua = [ "stylua" ];
+          python = [ "black" ];
+          javascript = [ "prettier" ];
+          typescript = [ "prettier" ];
+          rust = [ "rustfmt" ];
+          go = [ "gofmt" ];
+          nix = [ "nixfmt" ];
+          c = [ "clang-format" ];
+          cpp = [ "clang-format" ];
+          "_" = [ "trim_whitespace" ];
+        };
+        format_on_save = {
+          timeout_ms = 500;
+          lsp_fallback = true;
+        };
       };
     };
 

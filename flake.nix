@@ -41,7 +41,7 @@
       };
     in
     {
-      darwinConfigurations."${username}-darwin" = darwin.lib.darwinSystem {
+      darwinConfigurations.macbook = darwin.lib.darwinSystem {
         inherit system pkgs;
         specialArgs = {
           inherit inputs username;

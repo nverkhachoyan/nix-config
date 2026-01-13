@@ -15,9 +15,14 @@
         dynamic_title = true;
         dynamic_padding = true;
         startup_mode = "Maximized";
-        opacity = 0.9;
         blur = true;
         option_as_alt = "Both";
+      };
+
+      colors = {
+        primary = {
+          background = "#000000";
+        };
       };
 
       terminal = {

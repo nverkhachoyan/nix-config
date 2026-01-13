@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./programs/nvim.nix
+    ./programs/nvim
+    ./programs/tmux
     ./programs/zsh.nix
     ./programs/cli.nix
     ./programs/starship.nix

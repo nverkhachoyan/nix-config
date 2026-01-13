@@ -1,4 +1,4 @@
-{ root, pkgs, ... }:
+{ ... }:
 
 {
   programs.direnv = {
@@ -17,13 +17,4 @@
     enableZshIntegration = true;
   };
 
-  programs.tmux = {
-    enable = true;
-    plugins = with pkgs; [
-      tmuxPlugins.sensible
-      tmuxPlugins.dracula
-    ];
-
-    extraConfig = builtins.readFile "${root}/config/tmux/tmux.conf";
-  };
 }

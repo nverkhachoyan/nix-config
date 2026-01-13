@@ -2,6 +2,7 @@
   root,
   pkgs,
   username,
+  nixvim,
   ...
 }:
 
@@ -39,11 +40,12 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
   home-manager.extraSpecialArgs = {
-    inherit username root;
+    inherit username root nixvim;
   };
 
   home-manager.users.${username} = {
     imports = [
+      nixvim.homeModules.nixvim
       ../../home/home.nix
     ];
   };

@@ -60,6 +60,7 @@
           pkgs.git
           pkgs.nixfmt-tree
           darwin.packages.${system}.darwin-rebuild
+          home-manager.packages.${system}.default
         ];
       };
 

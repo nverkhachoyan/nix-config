@@ -120,7 +120,9 @@
         gopls.enable = true;
         clangd.enable = true;
         nixd.enable = true;
-        pyright.enable = true;
+        ruff.enable = true;
+        ty.enable = true;
+        vale_ls.enable = true;
       };
     };
 
@@ -129,7 +131,7 @@
       settings = {
         formatters_by_ft = {
           lua = [ "stylua" ];
-          python = [ "black" ];
+          python = [ "ruff_format" ];
           javascript = [ "prettier" ];
           typescript = [ "prettier" ];
           rust = [ "rustfmt" ];
@@ -150,7 +152,6 @@
       enable = true;
       lintersByFt = {
         markdown = [ "vale" ];
-        python = [ "pylint" ];
       };
       autoCmd = {
         event = "BufWritePost";

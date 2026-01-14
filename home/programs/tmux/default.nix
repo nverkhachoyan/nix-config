@@ -22,4 +22,11 @@
 
     extraConfig = builtins.readFile ./tmux.conf;
   };
+
+  programs.sesh = {
+    enable = true;
+    enableAlias = true;
+    icons = true;
+    enableTmuxIntegration = true;
+  };
 }

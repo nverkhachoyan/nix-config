@@ -135,7 +135,6 @@
       action = "<cmd>NvimTreeCollapseKeepBuffers<cr>";
       options.desc = "Collapse Keep Buffers";
     }
-    
 
     # Toggle relative numbers
     {

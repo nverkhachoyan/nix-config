@@ -24,4 +24,8 @@
     tmux.enableShellIntegration = true;
   };
 
+  programs.yt-dlp = {
+    enable = true;
+  };
+
 }

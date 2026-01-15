@@ -7,10 +7,12 @@
     zoxide
     bat
     fzf
+    fd
     ripgrep
     eza
     yt-dlp
     nmap
+    tree-sitter
 
     # Devops
     terraform
@@ -38,6 +40,8 @@
     stylua
     vale
     python3Packages.pylint
+    nodePackages.prettier
+    rustfmt
     # Nix
     nixfmt-tree
   ];

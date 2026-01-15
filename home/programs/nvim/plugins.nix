@@ -19,6 +19,8 @@
 
     treesitter = {
       enable = true;
+      package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+      nixGrammars = false;
       settings = {
         highlight.enable = true;
         indent.enable = true;
@@ -32,28 +34,6 @@
           };
         };
       };
-      nixGrammars = true;
-      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-        lua
-        javascript
-        typescript
-        rust
-        go
-        python
-        nix
-        bash
-        json
-        make
-        markdown
-        regex
-        toml
-        vim
-        vimdoc
-        xml
-        yaml
-        c
-        cpp
-      ];
     };
 
     cmp = {

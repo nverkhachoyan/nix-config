@@ -19,7 +19,7 @@
   environment.systemPackages = with pkgs; [
     git
     wget
-    raycast
+    discord-ptb
   ];
 
   environment.variables = {

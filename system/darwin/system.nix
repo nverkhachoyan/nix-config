@@ -4,12 +4,27 @@
     primaryUser = username;
     stateVersion = 6;
     defaults = {
-      dock.show-recents = false;
-      dock.mru-spaces = false;
-      finder.ShowPathbar = true;
-      finder.ShowStatusBar = true;
+      dock = {
+        show-recents = false;
+        mru-spaces = false;
+        # This clears all pinned apps from the Dock
+        persistent-apps = [];
+      };
 
-      NSGlobalDomain.KeyRepeat = 2;
+      finder = {
+        ShowPathbar = true;
+        ShowStatusBar = true;
+      };
+
+      NSGlobalDomain = {
+        KeyRepeat = 2;
+        # Disables various autocorrect features
+        NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+      };
     };
   };
 }

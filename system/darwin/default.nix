@@ -12,6 +12,9 @@
     ./system.nix
   ];
 
+  networking.hostName = "iloveyou";
+  networking.computerName = "iloveyou";
+
   users.users."${username}" = {
     home = "/Users/${username}";
   };
@@ -19,7 +22,9 @@
   environment.systemPackages = with pkgs; [
     git
     wget
-    discord-ptb
+    discord
+    google-chrome
+    monitorcontrol
   ];
 
   environment.variables = {
@@ -29,7 +34,6 @@
   };
 
   fonts.packages = with pkgs; [
-    jetbrains-mono
     nerd-fonts.jetbrains-mono
     nerd-fonts.droid-sans-mono
   ];

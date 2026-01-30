@@ -33,7 +33,7 @@
       ...
     }:
     let
-      username = "nverkhachoyan";
+      username = "nverk";
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         inherit system;
@@ -41,7 +41,7 @@
       };
     in
     {
-      darwinConfigurations.macbook = darwin.lib.darwinSystem {
+      darwinConfigurations.iloveyou = darwin.lib.darwinSystem {
         inherit system pkgs;
         specialArgs = {
           inherit inputs username;

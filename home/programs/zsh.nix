@@ -8,6 +8,7 @@
     autosuggestion.enable = true;
 
     shellAliases = {
+      dr = "sudo darwin-rebuild switch --flake ~/dev/personal/nix-config";
       nv = "nvim";
       ls = "eza --sort=type --icons --hyperlink --time-style relative --no-user --no-permissions";
       ll = "eza -lah --sort=type --icons --hyperlink --time-style relative";

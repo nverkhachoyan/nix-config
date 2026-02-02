@@ -9,6 +9,7 @@
     ./programs/starship.nix
     ./programs/alacritty.nix
     ./programs/ghostty.nix
+    ./programs/gh.nix
     ./programs/git.nix
     ./programs/ssh.nix
     ./packages.nix

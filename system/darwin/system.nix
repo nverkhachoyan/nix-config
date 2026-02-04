@@ -16,7 +16,7 @@
         show-recents = false;
         mru-spaces = false;
         # This clears all pinned apps from the Dock
-        persistent-apps = [];
+        persistent-apps = [ ];
         tilesize = 38;
       };
 
@@ -27,7 +27,6 @@
         NewWindowTarget = "Home";
         FXPreferredViewStyle = "clmv";
       };
-
 
       NSGlobalDomain = {
         KeyRepeat = 2;
@@ -48,9 +47,8 @@
 
     };
 
-      keyboard.enableKeyMapping = true;
-      keyboard.remapCapsLockToControl = true;
-    
- 
+    keyboard.enableKeyMapping = true;
+    keyboard.remapCapsLockToControl = true;
+
   };
 }

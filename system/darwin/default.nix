@@ -52,7 +52,7 @@
     users.${username} = {
       imports = [
         inputs.nixvim.homeModules.nixvim
-        ../../home/home.nix
+        ../../home
       ];
     };
   };

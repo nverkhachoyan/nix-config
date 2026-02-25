@@ -1,9 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
+
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 
 {
   programs.ghostty = {
     enable = true;
-    package = null;
+    package = if isDarwin then null else pkgs.ghostty;
     settings = {
       # Font settings
       "font-family" = "JetBrainsMono Nerd Font Mono";
@@ -22,19 +26,12 @@
       "window-padding-x" = 12;
       "window-padding-y" = 12;
 
-      # Clean up the macOS header
-      "macos-titlebar-style" = "tabs";
-      "macos-titlebar-proxy-icon" = "hidden";
-
       # --- Behavior ---
       maximize = true;
       "copy-on-select" = true;
       "mouse-hide-while-typing" = true;
       "confirm-close-surface" = true;
       "shell-integration" = "detect";
-
-      # --- Keyboard ---
-      "macos-option-as-alt" = true;
 
       # --- Cursor ---
       "cursor-style" = "block";

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, ... }:
 
 {
   programs.ssh = {
@@ -11,6 +11,8 @@
       serverAliveCountMax = 3;
       extraOptions = {
         AddKeysToAgent = "yes";
+      }
+      // lib.optionalAttrs pkgs.stdenv.isDarwin {
         UseKeychain = "yes";
       };
     };

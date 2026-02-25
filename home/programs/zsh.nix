@@ -1,4 +1,13 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+let
+  flakePath = "~/Dev/personal/nix-config";
+in
 
 {
   programs.zsh = {
@@ -9,7 +18,12 @@
     dotDir = "${config.xdg.configHome}/zsh";
 
     shellAliases = {
-      dr = "sudo darwin-rebuild switch --flake ~/dev/personal/nix-config";
+      rebuild =
+        if pkgs.stdenv.isDarwin then
+          "sudo darwin-rebuild switch --flake ${flakePath}#iloveyou"
+        else
+          "home-manager switch --flake ${flakePath}#nverk@workhorse";
+
       nv = "nvim";
       ls = "eza --sort=type --icons --hyperlink --time-style relative --no-user --no-permissions";
       ll = "eza -lah --sort=type --icons --hyperlink --time-style relative";
@@ -27,6 +41,12 @@
       laws = "aws --profile localstack";
       ".." = "cd ..";
       "..." = "cd ../..";
+    }
+    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      dr = "sudo darwin-rebuild switch --flake ${flakePath}#iloveyou";
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux {
+      hr = "home-manager switch --flake ${flakePath}#nverk@workhorse";
     };
 
     initContent = ''

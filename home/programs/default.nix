@@ -7,8 +7,8 @@
     ./zsh.nix
     ./cli.nix
     ./starship.nix
-    ./alacritty.nix
-    ./ghostty.nix
+    ./alacritty
+    ./ghostty
     ./gh.nix
     ./git.nix
     ./ssh.nix

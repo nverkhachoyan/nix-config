@@ -15,8 +15,6 @@
         dynamic_title = true;
         dynamic_padding = true;
         startup_mode = "Maximized";
-        blur = true;
-        option_as_alt = "Both";
       };
 
       colors = {

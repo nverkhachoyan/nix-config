@@ -8,7 +8,6 @@
 {
   imports = [
     ./nix.nix
-    ./homebrew.nix
     ./system.nix
   ];
 

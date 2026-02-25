@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.zsh = {
@@ -6,6 +6,7 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
 
     shellAliases = {
       dr = "sudo darwin-rebuild switch --flake ~/dev/personal/nix-config";

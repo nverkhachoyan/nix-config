@@ -13,6 +13,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nixfmt
     git
     wget
     google-chrome

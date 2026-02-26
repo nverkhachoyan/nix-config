@@ -10,6 +10,7 @@
 
       controlcenter = {
         FocusModes = false;
+        BatteryShowPercentage = false;
       };
 
       dock = {

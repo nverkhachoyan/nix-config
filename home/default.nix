@@ -29,6 +29,8 @@ in
 
   home.sessionVariables = {
     PATH = "$PATH:$HOME/.npm-global/bin";
+    PNPM_HOME =
+      if pkgs.stdenv.isDarwin then "$HOME/Library/pnpm/store" else "$HOME/.local/share/pnpm/store";
   };
 
   xdg.enable = true;

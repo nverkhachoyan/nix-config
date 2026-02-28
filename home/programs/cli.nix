@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.direnv = {
@@ -11,6 +11,11 @@
         hide_env_diff = true;
       };
     };
+  };
+
+  programs.lazydocker = {
+    enable = true;
+    package = pkgs.lazydocker;
   };
 
   programs.zoxide = {

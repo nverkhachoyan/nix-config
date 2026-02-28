@@ -1,8 +1,6 @@
-{ ... }:
+{ lib, host, ... }:
 {
-
-  imports = [
+  imports = lib.optionals (host.platform == "darwin") [
     ./1password.nix
   ];
-
 }

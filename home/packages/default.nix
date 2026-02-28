@@ -5,8 +5,5 @@
   ]
   ++ lib.optionals (host.platform == "linux") [
     ./linux.nix
-  ]
-  ++ lib.optionals (host.platform == "darwin") [
-    ./darwin.nix
   ];
 }

@@ -35,82 +35,71 @@
     let
       lib = nixpkgs.lib;
       username = "nverk";
-      hosts = {
-        iloveyou = {
-          kind = "darwin";
-          system = "aarch64-darwin";
-          homeDirectory = "/Users/${username}";
-        };
-
-        workhorse = {
-          kind = "home-manager";
-          system = "x86_64-linux";
-          homeDirectory = "/home/${username}";
-        };
+      iloveyou = {
+        name = "iloveyou";
+        platform = "darwin";
+        manager = "darwin";
+        system = "aarch64-darwin";
+        homeDirectory = "/Users/${username}";
       };
+
+      workhorse = {
+        name = "workhorse";
+        platform = "linux";
+        manager = "home-manager";
+        system = "x86_64-linux";
+        homeDirectory = "/home/${username}";
+      };
+
+      systems = lib.unique [
+        iloveyou.system
+        workhorse.system
+      ];
+      forAllSystems = lib.genAttrs systems;
+
+      darwinOverlays = [
+        (import ./overlays/darwin-python.nix)
+      ];
 
       mkPkgs =
         system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = lib.optionals (lib.hasSuffix "darwin" system) [
-            (final: prev: {
-              python313Packages = prev.python313Packages.overrideScope (
-                pyFinal: pyPrev: {
-                  # yt-dlp deps pull jeepney, and it fails on Darwin (jeepney uses dbus, which is not available on Darwin)
-                  # Disabling D-Bus check for jeepney for now
-                  jeepney = pyPrev.jeepney.overridePythonAttrs (_: {
-                    doCheck = false;
-                    pythonImportsCheck = [ ];
-                  });
-                }
-              );
-            })
-          ];
+          overlays = lib.optionals (lib.hasSuffix "darwin" system) darwinOverlays;
         };
 
-      mkHost = hostName: host: host // { name = hostName; };
-
-      darwinHosts = lib.mapAttrs mkHost (lib.filterAttrs (_: host: host.kind == "darwin") hosts);
-      hmHosts = lib.mapAttrs mkHost (lib.filterAttrs (_: host: host.kind == "home-manager") hosts);
-
-      allSystems = lib.unique (map (host: host.system) (lib.attrValues hosts));
-      forAllSystems = f: lib.genAttrs allSystems f;
-    in
-    {
-      darwinConfigurations = lib.mapAttrs (
-        _hostName: host:
+      mkDarwinConfiguration =
+        host:
         darwin.lib.darwinSystem {
           system = host.system;
           pkgs = mkPkgs host.system;
           specialArgs = {
             inherit inputs username host;
           };
-
           modules = [
             ./darwin
             home-manager.darwinModules.default
           ];
-        }
-      ) darwinHosts;
+        };
 
-      homeConfigurations = lib.mapAttrs' (
-        hostName: host:
-        lib.nameValuePair "${username}@${hostName}" (
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = mkPkgs host.system;
-            extraSpecialArgs = {
-              inherit inputs username host;
-              homeDirectory = host.homeDirectory;
-            };
-            modules = [
-              inputs.nixvim.homeModules.nixvim
-              ./home
-            ];
-          }
-        )
-      ) hmHosts;
+      mkHomeConfiguration =
+        host:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = mkPkgs host.system;
+          extraSpecialArgs = {
+            inherit inputs username host;
+            homeDirectory = host.homeDirectory;
+          };
+          modules = [
+            inputs.nixvim.homeModules.nixvim
+            ./home
+          ];
+        };
+    in
+    {
+      darwinConfigurations.iloveyou = mkDarwinConfiguration iloveyou;
+      homeConfigurations."${username}@workhorse" = mkHomeConfiguration workhorse;
 
       formatter = forAllSystems (system: (mkPkgs system).nixfmt-tree);
 

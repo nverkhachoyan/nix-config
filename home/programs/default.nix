@@ -2,8 +2,11 @@
 
 {
   imports = [
+    ./shell/aliases.nix
+    ./thunderbird.nix
     ./nvim
     ./tmux
+    ./bash.nix
     ./zsh.nix
     ./cli.nix
     ./starship.nix

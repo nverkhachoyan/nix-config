@@ -1,5 +1,5 @@
-{ lib, pkgs, ... }:
-lib.mkIf pkgs.stdenv.isDarwin {
+{ ... }:
+{
   launchd.agents."com.1password.SSH_AUTH_SOCK" = {
     enable = true;
     config = {

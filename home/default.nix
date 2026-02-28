@@ -1,37 +1,20 @@
 {
-  pkgs,
+  host,
   username,
-  homeDirectory ? null,
+  homeDirectory ? host.homeDirectory,
   ...
 }:
-
-let
-  resolvedHomeDirectory =
-    if homeDirectory != null then
-      homeDirectory
-    else if pkgs.stdenv.isDarwin then
-      "/Users/${username}"
-    else
-      "/home/${username}";
-in
-
 {
   imports = [
     ./platform
     ./programs
     ./services
-    ./packages.nix
+    ./packages
   ];
 
   home.username = username;
-  home.homeDirectory = resolvedHomeDirectory;
+  home.homeDirectory = homeDirectory;
   home.stateVersion = "24.05";
-
-  home.sessionVariables = {
-    PATH = "$PATH:$HOME/.npm-global/bin";
-    PNPM_HOME =
-      if pkgs.stdenv.isDarwin then "$HOME/Library/pnpm/store" else "$HOME/.local/share/pnpm/store";
-  };
 
   xdg.enable = true;
   programs.home-manager.enable = true;

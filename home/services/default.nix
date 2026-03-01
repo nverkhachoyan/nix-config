@@ -4,27 +4,6 @@
   pkgs,
   ...
 }:
-let
-  shellPluginCommands = [
-    "gh"
-    "aws"
-  ];
-
-  mkPosixWrapper = command: ''
-    ${command}() {
-      op plugin run -- ${command} "$@"
-    }
-  '';
-
-  mkFishWrapper = command: ''
-    function ${command} --wraps "${command}" --description "1Password Shell Plugin for ${command}"
-      op plugin run -- ${command} $argv
-    end
-  '';
-
-  posixShellWrappers = lib.concatMapStringsSep "\n" mkPosixWrapper shellPluginCommands;
-  fishShellWrappers = lib.concatMapStringsSep "\n" mkFishWrapper shellPluginCommands;
-in
 {
   imports =
     [ ]
@@ -41,7 +20,6 @@ in
   ];
 
   home.sessionVariables = {
-    OP_PLUGINS_SOURCED = "1";
   }
   // lib.optionalAttrs (host.platform == "darwin") {
     SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
@@ -50,7 +28,11 @@ in
     SSH_AUTH_SOCK = "$HOME/.1password/agent.sock";
   };
 
-  programs.bash.initExtra = posixShellWrappers;
-  programs.zsh.initContent = posixShellWrappers;
-  programs.fish.interactiveShellInit = fishShellWrappers;
+  programs._1password-shell-plugins = {
+    enable = true;
+    package = pkgs._1password-cli;
+    plugins = with pkgs; [
+      awscli2
+    ];
+  };
 }

@@ -1,4 +1,5 @@
 {
+  inputs,
   host,
   username,
   homeDirectory ? host.homeDirectory,
@@ -6,6 +7,7 @@
 }:
 {
   imports = [
+    inputs.onepassword-shell-plugins.hmModules.default
     ./platform
     ./programs
     ./services

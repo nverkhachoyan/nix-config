@@ -23,6 +23,10 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
+    onepassword-shell-plugins = {
+      url = "github:1Password/shell-plugins";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

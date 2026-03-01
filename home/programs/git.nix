@@ -15,11 +15,9 @@
 
       gpg.format = "ssh";
       commit.gpgsign = true;
+      "gpg \"ssh\"".program = "${pkgs._1password-gui}/bin/op-ssh-sign";
 
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBoVotkT+jNCRAtiZM+tQSh/grcNL17yldLsy1OhnsSb";
-    }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
   };
 

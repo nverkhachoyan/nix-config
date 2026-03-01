@@ -29,10 +29,11 @@ in
     dc = "docker compose";
     dps = ''docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'';
     cd = "z";
-    dev = "cd ~/projects/";
-    laws = "aws --profile localstack";
+    dev = "cd ~/Dev/";
+    code = "code --extensions-dir ~/.config/vscode/extensions --user-data-dir ~/.config/vscode/data";
     ".." = "cd ..";
     "..." = "cd ../..";
+
   }
   // lib.optionalAttrs (host.manager == "darwin") {
     dr = "sudo darwin-rebuild switch --flake ${flakePath}#${host.name}";

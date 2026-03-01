@@ -11,7 +11,7 @@
     backupFileExtension = "backup";
     extraSpecialArgs = {
       inherit inputs username host;
-      homeDirectory = host.homeDirectory;
+      inherit (host) homeDirectory;
     };
 
     users.${username} = {

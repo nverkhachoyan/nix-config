@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   programs.alacritty.settings.window = {
     blur = true;

@@ -37,7 +37,7 @@
       ...
     }:
     let
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
       username = "nverk";
       iloveyou = {
         name = "iloveyou";
@@ -76,7 +76,7 @@
       mkDarwinConfiguration =
         host:
         darwin.lib.darwinSystem {
-          system = host.system;
+          inherit (host) system;
           pkgs = mkPkgs host.system;
           specialArgs = {
             inherit inputs username host;
@@ -93,7 +93,7 @@
           pkgs = mkPkgs host.system;
           extraSpecialArgs = {
             inherit inputs username host;
-            homeDirectory = host.homeDirectory;
+            inherit (host) homeDirectory;
           };
           modules = [
             inputs.nixvim.homeModules.nixvim

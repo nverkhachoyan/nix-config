@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   home.sessionVariables = {
     VSCODE_PORTABLE = "$HOME/.config/vscode";

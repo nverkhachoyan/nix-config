@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   programs.ghostty.settings = {
     # Clean up the macOS header

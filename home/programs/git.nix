@@ -1,32 +1,32 @@
-{
-  ...
-}:
+_:
 
 {
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    settings = {
-      user = {
-        name = "Nver Khachoyan";
-        email = "khachoyannver@gmail.com";
+  programs = {
+    git = {
+      enable = true;
+      lfs.enable = true;
+      settings = {
+        user = {
+          name = "Nver Khachoyan";
+          email = "khachoyannver@gmail.com";
+        };
+        init.defaultBranch = "main";
+        pull.rebase = true;
+        pull.ff = "only";
+        fetch.prune = true;
+        rebase.autoStash = true;
+        merge.conflictstyle = "zdiff3";
+        commit.gpgsign = false;
       };
-      init.defaultBranch = "main";
-      pull.rebase = true;
-      pull.ff = "only";
-      fetch.prune = true;
-      rebase.autoStash = true;
-      merge.conflictstyle = "zdiff3";
-      commit.gpgsign = false;
     };
-  };
 
-  programs.lazygit = {
-    enable = true;
-  };
+    lazygit = {
+      enable = true;
+    };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
   };
 }

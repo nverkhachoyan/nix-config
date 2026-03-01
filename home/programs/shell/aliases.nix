@@ -28,7 +28,9 @@ in
     gfp = "git fetch && git pull";
     dc = "docker compose";
     dps = ''docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'';
-    cd = "z";
+    aws = "op plugin run -- aws";
+    nclean = "nh clean all --keep 7d";
+    c = "z";
     dev = "cd ~/Dev/";
     code = "code --extensions-dir ~/.config/vscode/extensions --user-data-dir ~/.config/vscode/data";
     ".." = "cd ..";

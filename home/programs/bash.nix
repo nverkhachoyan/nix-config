@@ -7,10 +7,10 @@
     enableCompletion = true;
 
     initExtra = ''
-      # lt function (tree view with level parameter)
-      lt() {
-        eza --sort=type --tree --level "''${1:-2}"
-      }
+      # Fall back to 1Password SSH agent socket if this shell did not inherit SSH_AUTH_SOCK.
+      if [ -z "$SSH_AUTH_SOCK" ] && [ -S "$HOME/.1password/agent.sock" ]; then
+        export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+      fi
 
       # Readline key bindings (bash)
       # - Up/Down: search history by current prefix (similar vibe to zsh up-line-or-history)

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -18,14 +18,6 @@
       mapleader = " ";
       maplocalleader = "\\";
     };
-
-    extraPackages = with pkgs; [
-      nixfmt-tree
-      nodePackages.prettier
-      rustfmt
-      fd
-      tree-sitter
-    ];
 
     extraConfigLuaPost = builtins.readFile ./lua/lualine.lua;
   };

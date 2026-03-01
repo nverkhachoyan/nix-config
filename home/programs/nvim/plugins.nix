@@ -19,8 +19,42 @@
 
     treesitter = {
       enable = true;
-      package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-      nixGrammars = false;
+      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        bash
+        c
+        comment
+        cpp
+        css
+        dockerfile
+        git_config
+        git_rebase
+        gitattributes
+        gitcommit
+        gitignore
+        go
+        gomod
+        gowork
+        hcl
+        helm
+        html
+        javascript
+        jsdoc
+        json
+        json5
+        lua
+        make
+        markdown
+        markdown_inline
+        nix
+        python
+        regex
+        toml
+        tsx
+        typescript
+        vim
+        vimdoc
+        yaml
+      ];
       settings = {
         highlight.enable = true;
         indent.enable = true;

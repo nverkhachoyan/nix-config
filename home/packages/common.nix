@@ -3,14 +3,14 @@
   home.packages = with pkgs; [
     # general tools
     btop
+    nh
+    deadnix
+    statix
     nil
-    zoxide
     bat
-    fzf
     fd
     ripgrep
     eza
-    yt-dlp
     nmap
     tree-sitter
 

@@ -1,6 +1,4 @@
-{
-  ...
-}:
+{ ... }:
 {
   programs.bash = {
     enable = true;
@@ -17,11 +15,13 @@
       bind '"\e[A": history-search-backward'
       bind '"\e[B": history-search-forward'
 
-      # - Ctrl+R: incremental reverse search (default in many distros, but explicit is fine)
-      bind '"\C-r": reverse-search-history'
-
       # - Ctrl+L: clear screen (usually default, but explicit is fine)
       bind '"\C-l": clear-screen'
+
+      # Ensure Atuin integration is initialized after other prompt hooks.
+      if command -v atuin >/dev/null 2>&1; then
+        eval "$(atuin init bash)"
+      fi
     '';
   };
 }

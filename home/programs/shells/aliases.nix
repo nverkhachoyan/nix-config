@@ -30,7 +30,7 @@ in
     dps = ''docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"'';
     aws = "op plugin run -- aws";
     nclean = "nh clean all --keep 7d";
-    c = "z";
+    cd = "z";
     dev = "cd ~/Dev/";
     code = "code --extensions-dir ~/.config/vscode/extensions --user-data-dir ~/.config/vscode/data";
     ".." = "cd ..";

@@ -1,5 +1,4 @@
 {
-  inputs,
   host,
   username,
   homeDirectory ? host.homeDirectory,

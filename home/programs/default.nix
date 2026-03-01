@@ -2,14 +2,11 @@
 
 {
   imports = [
-    ./shell/aliases.nix
+    ./shells
     ./thunderbird.nix
     ./nvim
     ./tmux
-    ./bash.nix
-    ./zsh.nix
     ./cli.nix
-    ./starship.nix
     ./alacritty
     ./ghostty
     ./gh.nix

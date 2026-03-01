@@ -7,6 +7,7 @@
 {
   imports = [
     ./platform
+    ./hyprland
     ./programs
     ./services
     ./packages

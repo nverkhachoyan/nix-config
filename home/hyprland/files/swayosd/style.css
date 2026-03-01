@@ -1,0 +1,26 @@
+@import url("./theme-colors.css");
+
+window {
+  border-radius: 10px;
+  opacity: 0.96;
+  border: 2px solid @border-color;
+  background-color: @background-color;
+}
+
+label {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 11pt;
+  color: @label;
+}
+
+image {
+  color: @image;
+}
+
+progressbar {
+  border-radius: 8px;
+}
+
+progress {
+  background-color: @progress;
+}

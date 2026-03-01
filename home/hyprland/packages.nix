@@ -1,0 +1,35 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    hyprland
+    hypridle
+    hyprlock
+    hyprpicker
+    waybar
+    wofi
+    mako
+    wlogout
+    pavucontrol
+    swww
+    imagemagick
+    jq
+    brightnessctl
+    playerctl
+    grim
+    slurp
+    swappy
+    wl-clipboard
+    cliphist
+    networkmanagerapplet
+    blueman
+    gnome-control-center
+    nautilus
+    libnotify
+    qalculate-gtk
+    kitty
+    walker
+    elephant
+    swayosd
+    hyprsunset
+  ];
+}

@@ -1,0 +1,72 @@
+@import url("./theme-colors.css");
+
+* {
+  background-image: none;
+  box-shadow: none;
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  color: @foreground;
+}
+
+window {
+  background-color: @background;
+}
+
+button {
+  margin: 16px;
+  min-width: 168px;
+  min-height: 144px;
+  border-radius: 14px;
+  border: 2px solid @border;
+  background-color: @card;
+  background-repeat: no-repeat;
+  background-position: center 32%;
+  background-size: 28%;
+  font-size: 18px;
+  padding-top: 86px;
+}
+
+button:hover,
+button:focus {
+  background-color: @accent_soft;
+  border-color: @accent;
+}
+
+#cancel {
+  border-color: @accent;
+}
+
+#shutdown,
+#reboot,
+#logout {
+  border-color: @danger;
+}
+
+#shutdown:hover,
+#shutdown:focus,
+#reboot:hover,
+#reboot:focus,
+#logout:hover,
+#logout:focus {
+  background-color: rgba(248, 113, 113, 0.25);
+  border-color: @danger;
+}
+
+#lock {
+  background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+
+#suspend {
+  background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+
+#logout {
+  background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+
+#reboot {
+  background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}
+
+#shutdown {
+  background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}

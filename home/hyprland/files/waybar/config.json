@@ -1,0 +1,165 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 4,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [
+    "custom/apps",
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock",
+    "custom/screenrecording-indicator",
+    "custom/idle-indicator",
+    "custom/notification-silencing-indicator",
+    "custom/nightlight-indicator"
+  ],
+  "modules-right": [
+    "group/tray-expander",
+    "network",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "custom/power"
+  ],
+  "custom/apps": {
+    "format": "󰣇",
+    "tooltip": false,
+    "on-click": "$HOME/.config/hypr/scripts/launch-apps.sh"
+  },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "active-only": false,
+    "disable-scroll": true,
+    "sort-by-number": true,
+    "on-click": "activate"
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%A, %B %d %Y}</big>\n<tt>{calendar}</tt>"
+  },
+  "custom/screenrecording-indicator": {
+    "exec": "$HOME/.config/hypr/scripts/waybar-indicator-recording.sh",
+    "return-type": "json",
+    "interval": 2,
+    "signal": 8
+  },
+  "custom/idle-indicator": {
+    "exec": "$HOME/.config/hypr/scripts/waybar-indicator-idle.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "signal": 9,
+    "on-click": "$HOME/.config/hypr/scripts/toggle-idle.sh"
+  },
+  "custom/notification-silencing-indicator": {
+    "exec": "$HOME/.config/hypr/scripts/waybar-indicator-dnd.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "signal": 10,
+    "on-click": "$HOME/.config/hypr/scripts/toggle-dnd.sh"
+  },
+  "custom/nightlight-indicator": {
+    "exec": "$HOME/.config/hypr/scripts/waybar-indicator-nightlight.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "signal": 11,
+    "on-click": "$HOME/.config/hypr/scripts/toggle-nightlight.sh"
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 250,
+      "children-class": "tray-child",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/expand-icon",
+      "tray"
+    ]
+  },
+  "custom/expand-icon": {
+    "format": "󰅀",
+    "tooltip": true,
+    "tooltip-format": "System tray"
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 8
+  },
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀",
+    "format-linked": "󰈀",
+    "format-disconnected": "󰤮",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}\n{essid}",
+    "on-click": "$HOME/.config/hypr/scripts/quick-settings.sh network",
+    "on-click-right": "nm-connection-editor"
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon}",
+    "format-muted": "󰖁",
+    "tooltip-format": "{volume}%",
+    "format-icons": {
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ],
+      "headphone": "󰋋",
+      "headset": "󰋎"
+    },
+    "on-click": "$HOME/.config/hypr/scripts/quick-settings.sh audio",
+    "on-click-right": "pavucontrol"
+  },
+  "backlight": {
+    "format": "{icon}",
+    "tooltip-format": "{percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
+    "on-click": "$HOME/.config/hypr/scripts/quick-settings.sh display"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-charging": "󰂄",
+    "format-plugged": "󰚥",
+    "tooltip-format": "{capacity}%",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "on-click": "$HOME/.config/hypr/scripts/quick-settings.sh power",
+    "on-click-right": "gnome-control-center power"
+  },
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip": false,
+    "on-click": "$HOME/.config/hypr/scripts/powermenu.sh"
+  }
+}

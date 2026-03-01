@@ -1,0 +1,104 @@
+@import url("../../theme-colors.css");
+
+* {
+  all: unset;
+}
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 16px;
+  color: @foreground;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+.box-wrapper {
+  background: alpha(@background, 0.96);
+  border: 2px solid @border;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.search-container {
+  background: alpha(@chip, 0.72);
+  border: 1px solid @accent_soft;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.input placeholder {
+  color: @muted;
+  opacity: 0.55;
+}
+
+.input:focus,
+.input:active {
+  box-shadow: none;
+  outline: none;
+}
+
+.content-container {
+  margin-top: 6px;
+}
+
+.elephant-hint,
+.placeholder {
+  color: @muted;
+}
+
+child:hover .item-box {
+  background: alpha(@chip, 0.75);
+}
+
+child:selected .item-box {
+  background: @accent_soft;
+  border: 1px solid @border;
+}
+
+child:selected .item-box * {
+  color: @accent_text;
+}
+
+.item-box {
+  border-radius: 10px;
+  padding-left: 14px;
+}
+
+.item-text-box {
+  all: unset;
+  padding: 12px 0;
+}
+
+.item-subtext {
+  font-size: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.item-image {
+  margin-right: 14px;
+  -gtk-icon-transform: scale(0.92);
+}
+
+.current {
+  font-style: italic;
+}
+
+.keybinds {
+  margin-top: 8px;
+}
+
+.error {
+  color: #f87171;
+}

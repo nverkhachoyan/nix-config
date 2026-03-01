@@ -1,0 +1,194 @@
+@import url("./colors.css");
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", "Noto Sans", sans-serif;
+  font-size: 11px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: @glass_bg;
+  color: @fg;
+  border: 1px solid @accent_border;
+  border-radius: 13px;
+  box-shadow: 0 8px 24px 0 @accent_glow;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  margin: 2px 6px;
+}
+
+#custom-apps,
+#workspaces,
+#clock,
+#group-tray-expander,
+#network,
+#pulseaudio,
+#backlight,
+#battery,
+#custom-power {
+  margin: 2px;
+  padding: 3px 8px;
+  border-radius: 9px;
+  background: @module_bg;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: @fg;
+}
+
+#custom-apps {
+  color: @accent;
+  border-color: @accent_border;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+#custom-apps:hover {
+  background: @accent_soft;
+  color: @accent_text;
+}
+
+#workspaces {
+  padding: 2px 4px;
+}
+
+#workspaces button {
+  margin: 0 2px;
+  padding: 2px 8px;
+  border-radius: 7px;
+  background: transparent;
+  color: @muted;
+  transition: all 120ms ease;
+}
+
+#workspaces button:hover {
+  background: @module_bg_hover;
+  color: @fg;
+}
+
+#workspaces button.active {
+  background: @accent_strong;
+  color: @accent_text;
+  border: 1px solid @accent;
+}
+
+#workspaces button.urgent {
+  background: rgba(248, 113, 113, 0.24);
+  color: #ffe9e9;
+  border: 1px solid rgba(248, 113, 113, 0.56);
+}
+
+#clock {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+#custom-screenrecording-indicator,
+#custom-idle-indicator,
+#custom-notification-silencing-indicator,
+#custom-nightlight-indicator {
+  margin: 2px 1px;
+  padding: 2px 6px;
+  min-width: 0;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: @muted;
+}
+
+#custom-screenrecording-indicator.active,
+#custom-idle-indicator.active,
+#custom-notification-silencing-indicator.active,
+#custom-nightlight-indicator.active {
+  background: @accent_soft;
+  border-color: @accent_border;
+  color: @fg;
+}
+
+#custom-screenrecording-indicator.active {
+  background: rgba(248, 113, 113, 0.22);
+  border-color: rgba(248, 113, 113, 0.58);
+  color: @critical;
+}
+
+#group-tray-expander {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#group-tray-expander:hover,
+#group-tray-expander:focus {
+  background: @module_bg_hover;
+  border-color: @accent_border;
+}
+
+#custom-expand-icon {
+  color: @muted;
+  padding: 0 3px;
+}
+
+#custom-expand-icon:hover {
+  color: @accent;
+}
+
+#tray {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#tray > .passive,
+#tray > .active,
+#tray > .needs-attention {
+  padding: 0 2px;
+}
+
+.tray-child {
+  margin-left: 4px;
+  margin-right: 0;
+}
+
+#network,
+#pulseaudio,
+#backlight,
+#battery {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#battery.warning,
+#battery.critical {
+  background: rgba(248, 113, 113, 0.20);
+  border-color: rgba(248, 113, 113, 0.55);
+  color: #ffdcdc;
+}
+
+#battery.charging {
+  color: @accent;
+  border-color: @accent_border;
+}
+
+#custom-power {
+  color: #ffe6e6;
+  background: rgba(248, 113, 113, 0.20);
+  border-color: rgba(248, 113, 113, 0.45);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#custom-power:hover {
+  background: rgba(248, 113, 113, 0.30);
+  border-color: rgba(248, 113, 113, 0.65);
+}
+
+tooltip {
+  background: @surface_bg;
+  color: @fg;
+  border-radius: 10px;
+  border: 1px solid @accent_border;
+  padding: 6px;
+}

@@ -49,6 +49,24 @@
     };
   };
 
+  systemd.user.services.hypr-monitor-hotplug = {
+    Unit = {
+      Description = "Hyprland monitor hotplug handler";
+      After = [ "hyprland-session.target" ];
+      PartOf = [ "hyprland-session.target" ];
+      ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${config.home.homeDirectory}/.config/hypr/scripts/monitor-hotplug.sh";
+      Restart = "on-failure";
+      RestartSec = "1";
+    };
+    Install = {
+      WantedBy = [ "hyprland-session.target" ];
+    };
+  };
+
   systemd.user.services.elephant = {
     Unit = {
       Description = "Elephant";

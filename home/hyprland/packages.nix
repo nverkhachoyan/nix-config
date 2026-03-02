@@ -19,6 +19,7 @@
     swappy
     wl-clipboard
     cliphist
+    socat
     networkmanagerapplet
     blueman
     gnome-control-center

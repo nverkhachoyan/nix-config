@@ -3,7 +3,14 @@ set -euo pipefail
 
 WALLPAPER_DIR="${HOME}/Docs/Pictures/Wallpapers"
 STATE_DIR="${XDG_STATE_HOME:-${HOME}/.local/state}/hypr-theme"
-CURRENT_WALLPAPER_FILE="${STATE_DIR}/current_wallpaper"
+WORKFLOW_ENV_FILE="${HOME}/.config/hypr/workspace-workflow.env"
+
+if [ -f "${WORKFLOW_ENV_FILE}" ]; then
+  # shellcheck disable=SC1090
+  . "${WORKFLOW_ENV_FILE}"
+fi
+
+LAPTOP_OUTPUT="${LAPTOP_OUTPUT:-eDP-1}"
 
 WAYBAR_COLORS_FILE="${HOME}/.config/waybar/colors.css"
 WALKER_COLORS_FILE="${HOME}/.config/walker/theme-colors.css"
@@ -20,12 +27,13 @@ mkdir -p \
   "$(dirname "${HYPRLOCK_COLORS_FILE}")"
 
 usage() {
-  cat <<'EOF'
+  cat <<'USAGE'
 Usage:
   theme-wallpaper.sh [--random]
   theme-wallpaper.sh --set /absolute/path/to/wallpaper
   theme-wallpaper.sh --reapply
-EOF
+  theme-wallpaper.sh --random-output <output>
+USAGE
 }
 
 require_cmd() {
@@ -68,9 +76,53 @@ collect_wallpapers() {
     | sort
 }
 
+connected_outputs() {
+  hyprctl monitors -j | jq -r '.[] | select((.disabled // false) | not) | .name'
+}
+
+wallpaper_state_file_for_output() {
+  local output="$1"
+  local safe_output="${output//[^[:alnum:]_.-]/_}"
+  printf '%s/current_wallpaper_%s\n' "${STATE_DIR}" "${safe_output}"
+}
+
+read_current_wallpaper() {
+  local output="$1"
+  local state_file=""
+
+  state_file="$(wallpaper_state_file_for_output "${output}")"
+  if [ -r "${state_file}" ]; then
+    cat "${state_file}"
+  fi
+}
+
+write_current_wallpaper() {
+  local output="$1"
+  local wallpaper="$2"
+  local state_file=""
+
+  state_file="$(wallpaper_state_file_for_output "${output}")"
+  printf '%s\n' "${wallpaper}" > "${state_file}"
+}
+
+read_displayed_wallpaper() {
+  local output="$1"
+
+  swww query 2>/dev/null | awk -v output="${output}" '
+    $0 ~ ": " output ":" {
+      pos = index($0, "image: ");
+      if (pos > 0) {
+        print substr($0, pos + 7);
+        exit;
+      }
+    }
+  '
+}
+
 pick_random_wallpaper() {
-  local current=""
+  local current="${1:-}"
   local selected=""
+
   if ! mapfile -t wallpapers < <(collect_wallpapers); then
     exit 1
   fi
@@ -80,13 +132,9 @@ pick_random_wallpaper() {
     exit 1
   fi
 
-  if [ -f "${CURRENT_WALLPAPER_FILE}" ]; then
-    current="$(cat "${CURRENT_WALLPAPER_FILE}")"
-  fi
-
   selected="$(printf '%s\n' "${wallpapers[@]}" | shuf -n 1)"
 
-  if [ "${#wallpapers[@]}" -gt 1 ] && [ "${selected}" = "${current}" ]; then
+  if [ "${#wallpapers[@]}" -gt 1 ] && [ -n "${current}" ] && [ "${selected}" = "${current}" ]; then
     selected="$(printf '%s\n' "${wallpapers[@]}" | grep -Fvx "${current}" | shuf -n 1)"
   fi
 
@@ -97,18 +145,14 @@ extract_dominant_hex() {
   local image="$1"
   local hex
 
-  hex="$(
+  hex="$({
     magick "${image}" \
       -resize 240x240^ \
       -gravity center \
       -extent 240x240 \
       -colors 8 \
-      -format %c histogram:info:- \
-      | sort -nr \
-      | head -n 1 \
-      | sed -E 's/.*#([0-9A-Fa-f]{6}).*/\1/' \
-      | tr 'A-F' 'a-f'
-  )"
+      -format %c histogram:info:-
+  } | sort -nr | head -n 1 | sed -E 's/.*#([0-9A-Fa-f]{6}).*/\1/' | tr 'A-F' 'a-f')"
 
   if [[ ! "${hex}" =~ ^[0-9a-f]{6}$ ]]; then
     hex="7dd3fc"
@@ -161,7 +205,7 @@ PY
 
 write_waybar_colors() {
   local -n palette="$1"
-  cat > "${WAYBAR_COLORS_FILE}" <<EOF
+  cat > "${WAYBAR_COLORS_FILE}" <<PALETTE
 @define-color accent ${palette[accent_hex]};
 @define-color accent_light #${palette[accent_light]};
 @define-color accent_dark #${palette[accent_dark]};
@@ -180,12 +224,12 @@ write_waybar_colors() {
 @define-color muted ${palette[muted]};
 @define-color critical ${palette[critical]};
 @define-color warning ${palette[warning]};
-EOF
+PALETTE
 }
 
 write_walker_colors() {
   local -n palette="$1"
-  cat > "${WALKER_COLORS_FILE}" <<EOF
+  cat > "${WALKER_COLORS_FILE}" <<PALETTE
 @define-color foreground ${palette[fg]};
 @define-color muted ${palette[muted]};
 @define-color background ${palette[surface_bg]};
@@ -194,12 +238,12 @@ write_walker_colors() {
 @define-color accent_soft ${palette[accent_soft]};
 @define-color accent_text ${palette[accent_text]};
 @define-color border ${palette[accent_border]};
-EOF
+PALETTE
 }
 
 write_wlogout_colors() {
   local -n palette="$1"
-  cat > "${WLOGOUT_COLORS_FILE}" <<EOF
+  cat > "${WLOGOUT_COLORS_FILE}" <<PALETTE
 @define-color foreground ${palette[fg]};
 @define-color background ${palette[overlay_bg]};
 @define-color card ${palette[surface_bg]};
@@ -208,29 +252,29 @@ write_wlogout_colors() {
 @define-color accent_soft ${palette[accent_soft]};
 @define-color border ${palette[accent_border]};
 @define-color danger ${palette[critical]};
-EOF
+PALETTE
 }
 
 write_swayosd_colors() {
   local -n palette="$1"
-  cat > "${SWAYOSD_COLORS_FILE}" <<EOF
+  cat > "${SWAYOSD_COLORS_FILE}" <<PALETTE
 @define-color background-color ${palette[surface_bg]};
 @define-color border-color ${palette[accent_hex]};
 @define-color label ${palette[fg]};
 @define-color image ${palette[fg]};
 @define-color progress ${palette[accent_hex]};
-EOF
+PALETTE
 }
 
 write_hyprlock_colors() {
   local -n palette="$1"
-  cat > "${HYPRLOCK_COLORS_FILE}" <<EOF
+  cat > "${HYPRLOCK_COLORS_FILE}" <<PALETTE
 \$color = rgba(13,17,24,0.92)
 \$inner_color = rgba(23,30,42,0.86)
 \$outer_color = rgba(${palette[r]},${palette[g]},${palette[b]},0.95)
 \$font_color = rgba(234,240,248,1.0)
 \$check_color = rgba(${palette[r]},${palette[g]},${palette[b]},1.0)
-EOF
+PALETTE
 }
 
 reload_waybar() {
@@ -265,9 +309,41 @@ apply_hypr_borders() {
   hyprctl keyword general:col.inactive_border "rgba(595959aa)" >/dev/null 2>&1 || true
 }
 
+resolve_theme_source() {
+  local -n selected_map="$1"
+  local theme_source=""
+
+  if [ -n "${selected_map[${LAPTOP_OUTPUT}]:-}" ]; then
+    theme_source="${selected_map[${LAPTOP_OUTPUT}]}"
+  else
+    theme_source="$(read_current_wallpaper "${LAPTOP_OUTPUT}" || true)"
+    if [ -z "${theme_source}" ] || [ ! -f "${theme_source}" ]; then
+      theme_source="$(read_displayed_wallpaper "${LAPTOP_OUTPUT}" || true)"
+    fi
+  fi
+
+  if [ -z "${theme_source}" ] || [ ! -f "${theme_source}" ]; then
+    theme_source=""
+    for output in "${!selected_map[@]}"; do
+      if [ -f "${selected_map[${output}]}" ]; then
+        theme_source="${selected_map[${output}]}"
+        break
+      fi
+    done
+  fi
+
+  if [ -z "${theme_source}" ] || [ ! -f "${theme_source}" ]; then
+    echo "Failed to determine theme source wallpaper" >&2
+    exit 1
+  fi
+
+  printf '%s\n' "${theme_source}"
+}
+
 main() {
   local mode="random"
   local target=""
+  local target_output=""
 
   case "${1:---random}" in
     --random)
@@ -284,6 +360,14 @@ main() {
     --reapply)
       mode="reapply"
       ;;
+    --random-output)
+      mode="random-output"
+      target_output="${2:-}"
+      if [ -z "${target_output}" ]; then
+        usage
+        exit 1
+      fi
+      ;;
     -h|--help)
       usage
       exit 0
@@ -294,10 +378,21 @@ main() {
       ;;
   esac
 
+  require_cmd hyprctl
+  require_cmd jq
   require_cmd swww
   require_cmd swww-daemon
   require_cmd magick
   require_cmd python3
+
+  declare -A selected_wallpapers=()
+  declare -a outputs=()
+
+  mapfile -t outputs < <(connected_outputs)
+  if [ "${#outputs[@]}" -eq 0 ]; then
+    echo "No connected outputs detected" >&2
+    exit 1
+  fi
 
   case "${mode}" in
     set)
@@ -306,37 +401,57 @@ main() {
       elif command -v readlink >/dev/null 2>&1; then
         target="$(readlink -f "${target}")"
       fi
+
       if [ ! -f "${target}" ] || [ ! -r "${target}" ]; then
         echo "Wallpaper is not readable: ${target}" >&2
         exit 1
       fi
-      ;;
-    reapply)
-      if [ -f "${CURRENT_WALLPAPER_FILE}" ] && [ -r "${CURRENT_WALLPAPER_FILE}" ]; then
-        target="$(cat "${CURRENT_WALLPAPER_FILE}")"
-      fi
-      if [ -z "${target}" ] || [ ! -f "${target}" ]; then
-        target="$(pick_random_wallpaper)"
-      fi
+
+      for output in "${outputs[@]}"; do
+        selected_wallpapers["${output}"]="${target}"
+      done
       ;;
     random)
-      target="$(pick_random_wallpaper)"
+      for output in "${outputs[@]}"; do
+        current="$(read_current_wallpaper "${output}" || true)"
+        selected_wallpapers["${output}"]="$(pick_random_wallpaper "${current}")"
+      done
+      ;;
+    reapply)
+      for output in "${outputs[@]}"; do
+        current="$(read_current_wallpaper "${output}" || true)"
+        if [ -n "${current}" ] && [ -f "${current}" ]; then
+          selected_wallpapers["${output}"]="${current}"
+        else
+          selected_wallpapers["${output}"]="$(pick_random_wallpaper "${current}")"
+        fi
+      done
+      ;;
+    random-output)
+      if ! printf '%s\n' "${outputs[@]}" | grep -Fxq "${target_output}"; then
+        echo "Output is not connected: ${target_output}" >&2
+        exit 1
+      fi
+
+      current="$(read_current_wallpaper "${target_output}" || true)"
+      selected_wallpapers["${target_output}"]="$(pick_random_wallpaper "${current}")"
       ;;
   esac
 
   ensure_swww_ready
 
-  swww img "${target}" \
-    --transition-type grow \
-    --transition-duration 1.1 \
-    --transition-fps 60 >/dev/null
+  for output in "${!selected_wallpapers[@]}"; do
+    swww img "${selected_wallpapers[${output}]}" \
+      --outputs "${output}" \
+      --transition-type grow \
+      --transition-duration 1.1 \
+      --transition-fps 60 >/dev/null
 
-  printf '%s\n' "${target}" > "${CURRENT_WALLPAPER_FILE}"
+    write_current_wallpaper "${output}" "${selected_wallpapers[${output}]}"
+  done
 
-  local dominant_hex
-  dominant_hex="$(extract_dominant_hex "${target}")"
-
-  local derived
+  theme_source="$(resolve_theme_source selected_wallpapers)"
+  dominant_hex="$(extract_dominant_hex "${theme_source}")"
   derived="$(derive_colors "${dominant_hex}")"
 
   declare -A colors=()

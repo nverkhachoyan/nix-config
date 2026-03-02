@@ -6,6 +6,12 @@ let
     inherit source;
     executable = true;
   };
+
+  laptopOutput = "eDP-1";
+  externalOutput = "DP-2";
+  externalPos = "1920x0";
+  workspacesPerMonitor = 10;
+  persistentWorkspaces = false;
 in
 {
   xdg.configFile = {
@@ -18,9 +24,33 @@ in
     "hypr/hypridle.conf" = mkSource ./files/hypr/hypridle.conf;
     "hypr/hyprlock.conf" = mkSource ./files/hypr/hyprlock.conf;
     "hypr/hyprsunset.conf" = mkSource ./files/hypr/hyprsunset.conf;
+    "hypr/monitor-layout.conf".text = ''
+      # Managed by Home Manager.
+      monitor = ${laptopOutput}, preferred, 0x0, 1
+      monitor = ${externalOutput}, preferred, ${externalPos}, 1
+      monitor = ,preferred,auto,1
+    '';
+    "hypr/workspace-workflow.env".text = ''
+      # Managed by Home Manager.
+      LAPTOP_OUTPUT='${laptopOutput}'
+      EXTERNAL_OUTPUT='${externalOutput}'
+      EXTERNAL_POS='${externalPos}'
+      WORKSPACES_PER_MONITOR='${toString workspacesPerMonitor}'
+      PERSISTENT_WORKSPACES='${if persistentWorkspaces then "true" else "false"}'
+    '';
+    "hypr/hyprsplit.conf".text = ''
+      # Managed by Home Manager.
+      plugin {
+          hyprsplit {
+              num_workspaces = ${toString workspacesPerMonitor}
+              persistent_workspaces = ${if persistentWorkspaces then "true" else "false"}
+          }
+      }
+    '';
 
     "hypr/scripts/launch-apps.sh" = mkExec ./files/hypr/scripts/launch-apps.sh;
     "hypr/scripts/launcher.sh" = mkExec ./files/hypr/scripts/launcher.sh;
+    "hypr/scripts/monitor-hotplug.sh" = mkExec ./files/hypr/scripts/monitor-hotplug.sh;
     "hypr/scripts/powermenu.sh" = mkExec ./files/hypr/scripts/powermenu.sh;
     "hypr/scripts/quick-settings.sh" = mkExec ./files/hypr/scripts/quick-settings.sh;
     "hypr/scripts/theme-wallpaper.sh" = mkExec ./files/hypr/scripts/theme-wallpaper.sh;
@@ -28,6 +58,7 @@ in
     "hypr/scripts/toggle-idle.sh" = mkExec ./files/hypr/scripts/toggle-idle.sh;
     "hypr/scripts/toggle-nightlight.sh" = mkExec ./files/hypr/scripts/toggle-nightlight.sh;
     "hypr/scripts/wallpaper-rotate.sh" = mkExec ./files/hypr/scripts/wallpaper-rotate.sh;
+    "hypr/scripts/workspace-dispatch.sh" = mkExec ./files/hypr/scripts/workspace-dispatch.sh;
     "hypr/scripts/waybar-indicator-dnd.sh" = mkExec ./files/hypr/scripts/waybar-indicator-dnd.sh;
     "hypr/scripts/waybar-indicator-idle.sh" = mkExec ./files/hypr/scripts/waybar-indicator-idle.sh;
     "hypr/scripts/waybar-indicator-nightlight.sh" = mkExec ./files/hypr/scripts/waybar-indicator-nightlight.sh;

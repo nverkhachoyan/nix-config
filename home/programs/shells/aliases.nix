@@ -32,7 +32,7 @@ in
     nclean = "nh clean all --keep 7d";
     cd = "z";
     dev = "cd ~/Dev/";
-    code = "code --extensions-dir ~/.config/vscode/extensions --user-data-dir ~/.config/vscode/data";
+    # code = "code --extensions-dir ~/.config/vscode/extensions --user-data-dir ~/.config/vscode/data";
     ".." = "cd ..";
     "..." = "cd ../..";
 

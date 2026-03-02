@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.ghostty.settings = {
     # Clean up the macOS header
     "macos-titlebar-style" = "tabs";

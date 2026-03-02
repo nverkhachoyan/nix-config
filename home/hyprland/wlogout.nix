@@ -40,8 +40,8 @@
         keybind = "c";
       }
     ];
-    style = builtins.replaceStrings [ "/usr/share/wlogout/icons" ] [ "${pkgs.wlogout}/share/wlogout/icons" ] (
-      builtins.readFile ./files/wlogout/style.css
-    );
+    style =
+      builtins.replaceStrings [ "/usr/share/wlogout/icons" ] [ "${pkgs.wlogout}/share/wlogout/icons" ]
+        (builtins.readFile ./files/wlogout/style.css);
   };
 }

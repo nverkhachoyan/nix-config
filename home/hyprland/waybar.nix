@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 let
   configJson = builtins.readFile ./files/waybar/config.json;
 in

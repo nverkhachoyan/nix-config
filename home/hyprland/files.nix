@@ -61,16 +61,20 @@ in
     "hypr/scripts/workspace-dispatch.sh" = mkExec ./files/hypr/scripts/workspace-dispatch.sh;
     "hypr/scripts/waybar-indicator-dnd.sh" = mkExec ./files/hypr/scripts/waybar-indicator-dnd.sh;
     "hypr/scripts/waybar-indicator-idle.sh" = mkExec ./files/hypr/scripts/waybar-indicator-idle.sh;
-    "hypr/scripts/waybar-indicator-nightlight.sh" = mkExec ./files/hypr/scripts/waybar-indicator-nightlight.sh;
-    "hypr/scripts/waybar-indicator-recording.sh" = mkExec ./files/hypr/scripts/waybar-indicator-recording.sh;
+    "hypr/scripts/waybar-indicator-nightlight.sh" =
+      mkExec ./files/hypr/scripts/waybar-indicator-nightlight.sh;
+    "hypr/scripts/waybar-indicator-recording.sh" =
+      mkExec ./files/hypr/scripts/waybar-indicator-recording.sh;
 
     "walker/config.toml" = {
       text = builtins.replaceStrings [ "@HOME@" ] [ config.home.homeDirectory ] (
         builtins.readFile ./files/walker/config.toml
       );
     };
-    "walker/themes/omarchy-default/layout.xml" = mkSource ./files/walker/themes/omarchy-default/layout.xml;
-    "walker/themes/omarchy-default/style.css" = mkSource ./files/walker/themes/omarchy-default/style.css;
+    "walker/themes/omarchy-default/layout.xml" =
+      mkSource ./files/walker/themes/omarchy-default/layout.xml;
+    "walker/themes/omarchy-default/style.css" =
+      mkSource ./files/walker/themes/omarchy-default/style.css;
 
     "wofi/launcher.conf" = mkSource ./files/wofi/launcher.conf;
     "wofi/launcher.css" = mkSource ./files/wofi/launcher.css;

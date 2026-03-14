@@ -7,7 +7,6 @@
 
   home = {
     sessionVariables = {
-      VSCODE_PORTABLE = "$HOME/.config/vscode";
       NPM_CONFIG_USERCONFIG = "$HOME/.config/npm/npmrc";
       NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.local/share/npm-global";
       NODE_REPL_HISTORY = "$HOME/.local/share/node_history";
